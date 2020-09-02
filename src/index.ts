@@ -21,7 +21,7 @@ export default function(api: IApi) {
 
   api.onStart(() => {
     const pkgNames = parseOptions();
-    const checkNames = [...new Set(pkgNames)];
+    const checkNames = [...new Set([...pkgNames, pkg.name])];
 
     for (const pkgName of checkNames) {
       try {
@@ -34,16 +34,13 @@ export default function(api: IApi) {
         );
       }
     }
-
-    // check self
-    updateNotifier({ pkg, shouldNotifyInNpmScript: true }).notify();
   });
 }
 
 export function checkVersionNotify(pkgName: string) {
   updateNotifier({
     pkg: require(`${pkgName}/package.json`),
-    updateCheckInterval: 2 * 60 * 60 * 1000,
+    updateCheckInterval: 0,
     shouldNotifyInNpmScript: true,
   }).notify({ defer: false });
 }
