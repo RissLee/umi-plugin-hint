@@ -1,6 +1,6 @@
 {
   "name": "umi-plugin-hint",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "lib/index.js",
   "description": "umi插件，提示有更新的依赖",
   "authors": {
