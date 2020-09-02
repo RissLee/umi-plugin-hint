@@ -24,9 +24,16 @@ export default {
 };
 ```
 
-## 提示相关更新
+## Show
 
-TODO
+```
+   ╭──────────────────────────────────────╮
+   │                                      │
+   │   Update available 1.19.1 → 2.1.1    │
+   │   Run yarn add prettier to update    │
+   │                                      │
+   ╰──────────────────────────────────────╯
+```
 
 ## LICENSE
 

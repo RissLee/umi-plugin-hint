@@ -2,6 +2,7 @@
 // - https://umijs.org/plugins/api
 import { IApi } from '@umijs/types';
 import updateNotifier from 'update-notifier';
+import pkg from '../package.json';
 
 export default function(api: IApi) {
   api.describe({
@@ -20,16 +21,29 @@ export default function(api: IApi) {
 
   api.onStart(() => {
     const pkgNames = parseOptions();
-    for (const pkgName of pkgNames) {
+    const checkNames = [...new Set(pkgNames)];
+
+    for (const pkgName of checkNames) {
       try {
-        updateNotifier({
-          pkg: require(`${pkgName}/package.json`),
-        }).notify();
+        checkVersionNotify(pkgName);
       } catch {
         api.logger.error(
-          `Update hint ${pkgName} not exists，please check your config[hint] `,
+          `Check Update hint '${pkgName}' not exists，please check your config file :{ hint: ${JSON.stringify(
+            api.config.hint,
+          )} } `,
         );
       }
     }
+
+    // check self
+    updateNotifier({ pkg, shouldNotifyInNpmScript: true }).notify();
   });
+}
+
+export function checkVersionNotify(pkgName: string) {
+  updateNotifier({
+    pkg: require(`${pkgName}/package.json`),
+    updateCheckInterval: 2 * 60 * 60 * 1000,
+    shouldNotifyInNpmScript: true,
+  }).notify({ defer: false });
 }

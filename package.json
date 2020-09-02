@@ -2,12 +2,13 @@
   "name": "umi-plugin-hint",
   "version": "0.0.1",
   "main": "lib/index.js",
-  "description": "umi插件，页面提示有更新的依赖",
+  "description": "umi插件，提示有更新的依赖",
   "authors": {
     "name": "risslee",
     "email": "risslee@foxmail.com"
   },
-  "repository": "/umi-plugin-hint",
+  "license": "MIT",
+  "repository": "https://github.com/RissLee/umi-plugin-hint",
   "scripts": {
     "start": "cross-env APP_ROOT=example umi dev",
     "build": "father-build",
