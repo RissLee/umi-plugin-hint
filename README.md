@@ -20,21 +20,22 @@ Configure in `.umirc.js` or `config/config.ts`,
 
 ```js
 export default {
-  hint: ['react', 'yourPkgName'],
+  hint: ['react', 'umi'],
 };
 ```
 
 ## Show
 
-```
-   ╭──────────────────────────────────────╮
-   │                                      │
-   │   Update available 1.19.1 → 2.1.1    │
-   │   Run yarn add prettier to update    │
-   │                                      │
-   ╰──────────────────────────────────────╯
-```
+developer terminal print
+
+![img](docs/terminal_snapshot.png)
+
+browser print attention dependencies package build version and project build info
+
+![img2](docs/browser_snapshot.png)
 
 ## LICENSE
 
 MIT
+
+![sas](coverage/lcov-report/favicon.png)
