@@ -4,6 +4,8 @@ import { IApi } from '@umijs/types';
 import updateNotifier, { Package } from 'update-notifier';
 import pkg from '../package.json';
 
+export const DIR_NAME = 'plugin-hint';
+
 export default function(api: IApi) {
   api.describe({
     key: 'hint',
@@ -90,6 +92,24 @@ export default function(api: IApi) {
       },
     ];
   });
+
+  // export build info for runtime
+  api.onGenerateFiles(() => {
+    const packages = getCheckPackages();
+
+    api.writeTmpFile({
+      path: `${DIR_NAME}/buildInfo.ts`,
+      content: `
+      export const buildInfo = {
+        version: '${api.pkg.version}',
+        buildDate: '${Date.now()}',
+        dependencies: ${JSON.stringify(packages, null, 2)}
+      }
+      `,
+    });
+  });
+
+  api.addRuntimePlugin(() => `@@/${DIR_NAME}/buildInfo`);
 }
 
 export function checkVersionNotify(pkg: Package) {
