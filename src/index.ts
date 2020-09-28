@@ -100,16 +100,26 @@ export default function(api: IApi) {
     api.writeTmpFile({
       path: `${DIR_NAME}/buildInfo.ts`,
       content: `
-      export const buildInfo = {
-        version: '${api.pkg.version}',
-        buildDate: '${Date.now()}',
-        dependencies: ${JSON.stringify(packages, null, 2)}
-      }
-      `,
+import { Package } from 'update-notifier'
+
+export interface BuildInfo{
+    version: string;
+    buildDate: number;
+    dependencies: Package[];
+}
+
+export const buildInfo:BuildInfo = {
+  version: '${api.pkg.version}',
+  buildDate: ${Date.now()},
+  dependencies: ${JSON.stringify(packages, null, 2)}
+}`,
     });
   });
 
-  api.addRuntimePlugin(() => `@@/${DIR_NAME}/buildInfo`);
+  api.addUmiExports(() => ({
+    source: `@@/${DIR_NAME}/buildInfo`,
+    exportAll: true,
+  }));
 }
 
 export function checkVersionNotify(pkg: Package) {
