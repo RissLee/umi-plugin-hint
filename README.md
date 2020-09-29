@@ -37,5 +37,3 @@ browser print attention dependencies package build version and project build inf
 ## LICENSE
 
 MIT
-
-![sas](coverage/lcov-report/favicon.png)
